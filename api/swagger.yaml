@@ -1,0 +1,1465 @@
+---
+swagger: "2.0"
+info:
+  description: "Core functionality of Supergiant"
+  version: "0.7.1"
+  title: "Supergiant API"
+basePath: "/v0"
+schemes:
+- "http"
+produces:
+- "application/json"
+paths:
+  /apps:
+    get:
+      tags:
+      - "Apps"
+      summary: "List Apps"
+      description: "Returns a list of Apps.\n"
+      operationId: "appsGET"
+      parameters: []
+      responses:
+        200:
+          description: "An array of Apps"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/App"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Apps"
+    post:
+      tags:
+      - "Apps"
+      summary: "Create a App"
+      description: "Creates a App.\n"
+      operationId: "appsPOST"
+      parameters:
+      - in: "body"
+        name: "app"
+        required: true
+        schema:
+          $ref: "#/definitions/App"
+      responses:
+        201:
+          description: "A App"
+          schema:
+            $ref: "#/definitions/App"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Apps"
+  /apps/{app_name}/components:
+    get:
+      tags:
+      - "Components"
+      summary: "List Components"
+      description: "Returns a list of Components.\n"
+      operationId: "appsApp_nameComponentsGET"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "An array of Components"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Component"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Components"
+    post:
+      tags:
+      - "Components"
+      summary: "Create a Component"
+      description: "Creates a Component.\n"
+      operationId: "appsApp_nameComponentsPOST"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "component"
+        required: true
+        schema:
+          $ref: "#/definitions/Component"
+      responses:
+        201:
+          description: "A Component"
+          schema:
+            $ref: "#/definitions/Component"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Components"
+  /apps/{app_name}/components/{component_name}:
+    get:
+      tags:
+      - "Components"
+      summary: "Show a Component"
+      description: "Shows a Component.\n"
+      operationId: "appsApp_nameComponentsComponent_nameGET"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Component"
+          schema:
+            $ref: "#/definitions/Component"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Components"
+    put:
+      tags:
+      - "Components"
+      summary: "Partially update a Component"
+      description: "Partially updates a Component.\n"
+      operationId: "appsApp_nameComponentsComponent_namePUT"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        202:
+          description: "A Component"
+          schema:
+            $ref: "#/definitions/Component"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Components"
+    delete:
+      tags:
+      - "Components"
+      summary: "Delete a Component"
+      description: "Deletes a Component.\n"
+      operationId: "appsApp_nameComponentsComponent_nameDELETE"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Component"
+          schema:
+            type: "string"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Components"
+  /apps/{app_name}/components/{component_name}/deploy:
+    post:
+      tags:
+      - "Components"
+      summary: "Deploy a Component"
+      description: "Deploys a Component by making the target Release the new current\n\
+        Release, retiring the old current Release, and nulling the target.\n"
+      operationId: "appsApp_nameComponentsComponent_nameDeployPOST"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        201:
+          description: "A Instance"
+          schema:
+            $ref: "#/definitions/Instance"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Components"
+  /apps/{app_name}/components/{component_name}/releases:
+    get:
+      tags:
+      - "Releases"
+      summary: "List Releases"
+      description: "Returns a list of Releases.\n"
+      operationId: "appsApp_nameComponentsComponent_nameReleasesGET"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "An array of Releases"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Release"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Releases"
+    post:
+      tags:
+      - "Releases"
+      summary: "Create a Release"
+      description: "Creates a Release.\n"
+      operationId: "appsApp_nameComponentsComponent_nameReleasesPOST"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "release"
+        required: true
+        schema:
+          $ref: "#/definitions/Release"
+      responses:
+        201:
+          description: "A Release"
+          schema:
+            $ref: "#/definitions/Release"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Releases"
+    patch:
+      tags:
+      - "Releases"
+      summary: "Merge-create a Release"
+      description: "Creates a new target Release on the Component by merging new values\
+        \ with\nthe current Release.\n"
+      operationId: "appsApp_nameComponentsComponent_nameReleasesPATCH"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "release"
+        required: true
+        schema:
+          $ref: "#/definitions/Release"
+      responses:
+        201:
+          description: "A Release"
+          schema:
+            $ref: "#/definitions/Release"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Releases"
+  /apps/{app_name}/components/{component_name}/releases/{release_timestamp}:
+    get:
+      tags:
+      - "Releases"
+      summary: "Show a Release"
+      description: "Shows a Release.\n"
+      operationId: "appsApp_nameComponentsComponent_nameReleasesRelease_timestampGET"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "release_timestamp"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Release"
+          schema:
+            $ref: "#/definitions/Release"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Releases"
+    put:
+      tags:
+      - "Releases"
+      summary: "Partially update a Release"
+      description: "Partially updates a Release.\n"
+      operationId: "appsApp_nameComponentsComponent_nameReleasesRelease_timestampPUT"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "release_timestamp"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        202:
+          description: "A Release"
+          schema:
+            $ref: "#/definitions/Release"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Releases"
+    delete:
+      tags:
+      - "Releases"
+      summary: "Delete a Release"
+      description: "Deletes a Release.\n"
+      operationId: "appsApp_nameComponentsComponent_nameReleasesRelease_timestampDELETE"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "release_timestamp"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Release"
+          schema:
+            type: "string"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Releases"
+  /apps/{app_name}/components/{component_name}/releases/{release_timestamp}/instances:
+    get:
+      tags:
+      - "Instances"
+      summary: "List Instances"
+      description: "Returns a list of Instances.\n"
+      operationId: "appsApp_nameComponentsComponent_nameReleasesRelease_timestampInstancesGET"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "release_timestamp"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "An array of Instances"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Instance"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Instances"
+  /apps/{app_name}/components/{component_name}/releases/{release_timestamp}/instances/{id}:
+    get:
+      tags:
+      - "Instances"
+      summary: "Show a Instance"
+      description: "Shows a Instance.\n"
+      operationId: "appsApp_nameComponentsComponent_nameReleasesRelease_timestampInstancesIdGET"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "release_timestamp"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Instance"
+          schema:
+            $ref: "#/definitions/Instance"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Instances"
+  /apps/{app_name}/components/{component_name}/releases/{release_timestamp}/instances/{id}/log:
+    get:
+      tags:
+      - "Instances"
+      summary: "Show a Instance log"
+      description: "Shows a Instance log.\n"
+      operationId: "appsApp_nameComponentsComponent_nameReleasesRelease_timestampInstancesIdLogGET"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "release_timestamp"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "The container log output."
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Instances"
+  /apps/{app_name}/components/{component_name}/releases/{release_timestamp}/instances/{id}/start:
+    post:
+      tags:
+      - "Instances"
+      summary: "Start a Instance"
+      description: "Starts a Instance.\n"
+      operationId: "appsApp_nameComponentsComponent_nameReleasesRelease_timestampInstancesIdStartPOST"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "release_timestamp"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        201:
+          description: "A Instance"
+          schema:
+            $ref: "#/definitions/Instance"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Instances"
+  /apps/{app_name}/components/{component_name}/releases/{release_timestamp}/instances/{id}/stop:
+    post:
+      tags:
+      - "Instances"
+      summary: "Stop a Instance"
+      description: "Stops a Instance.\n"
+      operationId: "appsApp_nameComponentsComponent_nameReleasesRelease_timestampInstancesIdStopPOST"
+      parameters:
+      - name: "app_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "component_name"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "release_timestamp"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        201:
+          description: "A Instance"
+          schema:
+            $ref: "#/definitions/Instance"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Instances"
+  /apps/{name}:
+    get:
+      tags:
+      - "Apps"
+      summary: "Show a App"
+      description: "Shows a App.\n"
+      operationId: "appsNameGET"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A App"
+          schema:
+            $ref: "#/definitions/App"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Apps"
+    put:
+      tags:
+      - "Apps"
+      summary: "Partially update a App"
+      description: "Partially updates a App.\n"
+      operationId: "appsNamePUT"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        202:
+          description: "A App"
+          schema:
+            $ref: "#/definitions/App"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Apps"
+    delete:
+      tags:
+      - "Apps"
+      summary: "Delete a App"
+      description: "Deletes a App.\n"
+      operationId: "appsNameDELETE"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A App"
+          schema:
+            type: "string"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Apps"
+  /entrypoints:
+    get:
+      tags:
+      - "Entrypoints"
+      summary: "List Entrypoints"
+      description: "Returns a list of Entrypoints.\n"
+      operationId: "entrypointsGET"
+      parameters: []
+      responses:
+        200:
+          description: "An array of Entrypoints"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Entrypoint"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Entrypoints"
+    post:
+      tags:
+      - "Entrypoints"
+      summary: "Create a Entrypoint"
+      description: "Creates a Entrypoint.\n"
+      operationId: "entrypointsPOST"
+      parameters:
+      - in: "body"
+        name: "entrypoint"
+        required: true
+        schema:
+          $ref: "#/definitions/Entrypoint"
+      responses:
+        201:
+          description: "A Entrypoint"
+          schema:
+            $ref: "#/definitions/Entrypoint"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Entrypoints"
+  /entrypoints/{domain}:
+    get:
+      tags:
+      - "Entrypoints"
+      summary: "Show a Entrypoint"
+      description: "Shows a Entrypoint.\n"
+      operationId: "entrypointsDomainGET"
+      parameters:
+      - name: "domain"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Entrypoint"
+          schema:
+            $ref: "#/definitions/Entrypoint"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Entrypoints"
+    put:
+      tags:
+      - "Entrypoints"
+      summary: "Partially update a Entrypoint"
+      description: "Partially updates a Entrypoint.\n"
+      operationId: "entrypointsDomainPUT"
+      parameters:
+      - name: "domain"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        202:
+          description: "A Entrypoint"
+          schema:
+            $ref: "#/definitions/Entrypoint"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Entrypoints"
+    delete:
+      tags:
+      - "Entrypoints"
+      summary: "Delete a Entrypoint"
+      description: "Deletes a Entrypoint.\n"
+      operationId: "entrypointsDomainDELETE"
+      parameters:
+      - name: "domain"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Entrypoint"
+          schema:
+            type: "string"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Entrypoints"
+  /nodes:
+    get:
+      tags:
+      - "Nodes"
+      summary: "List Nodes"
+      description: "Returns a list of Nodes.\n"
+      operationId: "nodesGET"
+      parameters: []
+      responses:
+        200:
+          description: "An array of Nodes"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Node"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Nodes"
+    post:
+      tags:
+      - "Nodes"
+      summary: "Create a Node"
+      description: "Creates a Node.\n"
+      operationId: "nodesPOST"
+      parameters:
+      - in: "body"
+        name: "node"
+        required: true
+        schema:
+          $ref: "#/definitions/Node"
+      responses:
+        201:
+          description: "A Node"
+          schema:
+            $ref: "#/definitions/Node"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Nodes"
+  /nodes/{id}:
+    get:
+      tags:
+      - "Nodes"
+      summary: "Show a Node"
+      description: "Shows a Node.\n"
+      operationId: "nodesIdGET"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Node"
+          schema:
+            $ref: "#/definitions/Node"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Nodes"
+    put:
+      tags:
+      - "Nodes"
+      summary: "Partially update a Node"
+      description: "Partially updates a Node.\n"
+      operationId: "nodesIdPUT"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        202:
+          description: "A Node"
+          schema:
+            $ref: "#/definitions/Node"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Nodes"
+    delete:
+      tags:
+      - "Nodes"
+      summary: "Delete a Node"
+      description: "Deletes a Node.\n"
+      operationId: "nodesIdDELETE"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Node"
+          schema:
+            type: "string"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Nodes"
+  /registries/dockerhub/repos:
+    get:
+      tags:
+      - "Repos (Dockerhub orgs)"
+      summary: "List Repos"
+      description: "Returns a list of Repos belonging to the dockerhub Registry.\n"
+      operationId: "registriesDockerhubReposGET"
+      parameters: []
+      responses:
+        200:
+          description: "An array of Repos"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Repo"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ReposDockerhubOrgs"
+    post:
+      tags:
+      - "Repos (Dockerhub orgs)"
+      summary: "Create a Repo"
+      description: "Creates a Repo belonging to the dockerhub Registry.\n"
+      operationId: "registriesDockerhubReposPOST"
+      parameters:
+      - in: "body"
+        name: "repo"
+        required: true
+        schema:
+          $ref: "#/definitions/Repo"
+      responses:
+        201:
+          description: "A Repo"
+          schema:
+            $ref: "#/definitions/Repo"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ReposDockerhubOrgs"
+  /registries/dockerhub/repos/{name}:
+    get:
+      tags:
+      - "Repos (Dockerhub orgs)"
+      summary: "Show a Repo"
+      description: "Shows a Repo belonging to the dockerhub Registry.\n"
+      operationId: "registriesDockerhubReposNameGET"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Repo"
+          schema:
+            $ref: "#/definitions/Repo"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ReposDockerhubOrgs"
+    put:
+      tags:
+      - "Repos (Dockerhub orgs)"
+      summary: "Partially update a Repo"
+      description: "Partially updates a Repo belonging to the dockerhub Registry.\n"
+      operationId: "registriesDockerhubReposNamePUT"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        202:
+          description: "A Repo"
+          schema:
+            $ref: "#/definitions/Repo"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ReposDockerhubOrgs"
+    delete:
+      tags:
+      - "Repos (Dockerhub orgs)"
+      summary: "Delete a Repo"
+      description: "Deletes a Repo belonging to the dockerhub Registry.\n"
+      operationId: "registriesDockerhubReposNameDELETE"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Repo"
+          schema:
+            type: "string"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "ReposDockerhubOrgs"
+  /tasks:
+    get:
+      tags:
+      - "Tasks"
+      summary: "List Tasks"
+      description: "Returns a list of Tasks.\n"
+      operationId: "tasksGET"
+      parameters: []
+      responses:
+        200:
+          description: "An array of Tasks"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Task"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Tasks"
+  /tasks/{id}:
+    get:
+      tags:
+      - "Tasks"
+      summary: "Show a Task"
+      description: "Shows a Task.\n"
+      operationId: "tasksIdGET"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Task"
+          schema:
+            $ref: "#/definitions/Task"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Tasks"
+    delete:
+      tags:
+      - "Tasks"
+      summary: "Delete a Task"
+      description: "Deletes a Task.\n"
+      operationId: "tasksIdDELETE"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Task"
+          schema:
+            type: "string"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Tasks"
+definitions:
+  Error:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+  Repo:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "A string that should match the name of the Organization on Dockerhub.\
+          \ For example, the container image \"my_company/my_app:1.0.0\" should use\
+          \ \"my_company\"."
+      key:
+        type: "string"
+        description: "A string that represents the generated key (base64 encoded combination\
+          \ of Dockerhub credentials)."
+      secret_type:
+        type: "string"
+        description: "A string that can be either \"dockercfg\" (default) or \"dockerconfigjson\"\
+          , which should represent the format of the \"key\" value."
+      tags:
+        type: "object"
+        description: "A key/value (string/string) map for user tagging."
+        properties: {}
+      created:
+        type: "string"
+        description: "A string representing the time the resource was created in RFC1123\
+          \ format."
+        readOnly: true
+      updated:
+        type: "string"
+        description: "A string representing the time the resource was updated in RFC1123\
+          \ format."
+        readOnly: true
+  App:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "The name and identifier of the App."
+      tags:
+        type: "object"
+        description: "A key/value (string/string) map for user tagging."
+        properties: {}
+      created:
+        type: "string"
+        description: "A string representing the time the resource was created in RFC1123\
+          \ format."
+        readOnly: true
+      updated:
+        type: "string"
+        description: "A string representing the time the resource was updated in RFC1123\
+          \ format."
+        readOnly: true
+  Component:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "The name and identifier of the Component. Must be unique within\
+          \ the context of the App."
+      custom_deploy_script:
+        $ref: "#/definitions/CustomDeployScript"
+      current_release_timestamp:
+        type: "string"
+        description: "The ID (timestamp) of the current Release."
+        readOnly: true
+      target_release_timestamp:
+        type: "string"
+        description: "The ID (timestamp) of the target Release."
+        readOnly: true
+      addresses:
+        $ref: "#/definitions/Addresses"
+      tags:
+        type: "object"
+        description: "A key/value (string/string) map for user tagging."
+        properties: {}
+      created:
+        type: "string"
+        description: "A string representing the time the resource was created in RFC1123\
+          \ format."
+        readOnly: true
+      updated:
+        type: "string"
+        description: "A string representing the time the resource was updated in RFC1123\
+          \ format."
+        readOnly: true
+  CustomDeployScript:
+    type: "object"
+    properties:
+      image:
+        type: "string"
+        description: "The full container image identifier in the form of \"repo_name/image_name:version\"\
+          ."
+      command:
+        type: "array"
+        description: "An array of arguments comprising the full command to execute\
+          \ in the container."
+        items:
+          type: "string"
+  Addresses:
+    type: "object"
+    properties:
+      internal:
+        type: "array"
+        items:
+          $ref: "#/definitions/PortAddress"
+      external:
+        type: "array"
+        items:
+          $ref: "#/definitions/PortAddress"
+  PortAddress:
+    type: "object"
+    properties:
+      port:
+        type: "string"
+        description: "The container port which defines the address."
+        readOnly: true
+      address:
+        type: "string"
+        description: "The address in the form of \"host:port\"."
+        readOnly: true
+  Release:
+    type: "object"
+    properties:
+      timestamp:
+        type: "string"
+        description: "The ID for the Release, in the form of a timestamp."
+        readOnly: true
+      instance_count:
+        type: "number"
+        format: "int32"
+        description: "The number of instances of the container/volume configuration."
+      volumes:
+        type: "array"
+        items:
+          $ref: "#/definitions/VolumeBlueprint"
+      containers:
+        type: "array"
+        items:
+          $ref: "#/definitions/ContainerBlueprint"
+      termination_grace_period:
+        type: "number"
+        format: "int64"
+        description: "The number of seconds before forcefully terminating containers\
+          \ when restarting or deleting. Default is 10."
+      retired:
+        type: "boolean"
+        description: "When true, Release no longer has assets or control of active\
+          \ shared assets belonging to the Component."
+        readOnly: true
+      committed:
+        type: "boolean"
+        description: "When true, Release has been deployed."
+        readOnly: true
+      tags:
+        type: "object"
+        description: "A key/value (string/string) map for user tagging."
+        properties: {}
+      created:
+        type: "string"
+        description: "A string representing the time the resource was created in RFC1123\
+          \ format."
+        readOnly: true
+      updated:
+        type: "string"
+        description: "A string representing the time the resource was updated in RFC1123\
+          \ format."
+        readOnly: true
+  VolumeBlueprint:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "Name is used to reference a Volume in a Container Mount, and\
+          \ is also used as a part of the actual external volume name."
+      type:
+        type: "string"
+        description: "(Currently only AWS) can be \"gp2\" (SSD), \"io1\" (Provisioned\
+          \ IOPS SSD, though there is currently no input for iops value), or \"standard\"\
+          \ (magnetic)."
+      size:
+        type: "number"
+        format: "int32"
+        description: "The size of the volume in GiB (Gibibyte)."
+  ContainerBlueprint:
+    type: "object"
+    properties:
+      image:
+        type: "string"
+        description: "The full container image identifier in the form of \"repo_name/image_name:version\"\
+          ."
+      name:
+        type: "string"
+        description: "Optional container name, useful for when defining multiple (different)\
+          \ containers in one Component definition."
+      ports:
+        type: "array"
+        items:
+          $ref: "#/definitions/Port"
+      mounts:
+        type: "array"
+        items:
+          $ref: "#/definitions/Mount"
+      env:
+        type: "array"
+        items:
+          $ref: "#/definitions/EnvVar"
+      cpu:
+        $ref: "#/definitions/CpuAllocation"
+      ram:
+        $ref: "#/definitions/RamAllocation"
+      command:
+        type: "array"
+        description: "(Optional) An array of arguments comprising the full command\
+          \ to execute in the container."
+        items:
+          type: "string"
+  EnvVar:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "The name of the environment variable."
+      value:
+        type: "string"
+        description: "The value of the environment variable."
+  Mount:
+    type: "object"
+    properties:
+      volume:
+        type: "string"
+        description: "The name of the VolumeBlueprint this Mount is referencing."
+      path:
+        type: "string"
+        description: "The directory where the volume will be mounted in the container."
+  Port:
+    type: "object"
+    properties:
+      protocol:
+        type: "string"
+        description: "The protocol of the Kubernetes service port, \"TCP\" (default)\
+          \ or \"UDP\"."
+      number:
+        type: "number"
+        format: "int32"
+        description: "The number of the port used inside the container. For example,\
+          \ port 80 (HTTP) or 443 (HTTPS) for a website."
+      public:
+        type: "boolean"
+        description: "Determines whether the port can be accessed only from other\
+          \ Components\ninside Supergiant (false, default), or from both inside and\
+          \ outside of\nSupergiant (true). When true, the port can be accessed from\
+          \ external\nNode IPs. When true, with an `entrypoint_domain` provided, the\
+          \ port\nwill be exposed on an external load balancer (AWS ELB), giving it\
+          \ an\npublicly accessible address.\n"
+      per_instance:
+        type: "boolean"
+        description: "When true, each Instance (the number of which is determined\
+          \ by Release\n`instance_count` field) of a Component is assigned addressable\n\
+          endpoints (external and/or internal, in addition to the normal\nComponent-wide,\
+          \ load-balanced endpoints). When false (default),\nInstances can not be\
+          \ reached directly on this Port, as traffic to it\nis load-balanced internally\
+          \ by Kubernetes across all Instances.\n"
+      entrypoint_domain:
+        type: "string"
+        description: "(Optional) The `domain` of the Entrypoint to be used with this\
+          \ Port.\nWhen provided, this Port will be exposed on the external load balancer\n\
+          (AWS ELB) -- the external number is either assigned manually through\nthe\
+          \ optional `external_number` field, or randomly by the Kubernetes\nNodePort\
+          \ service. Does not apply when `public` is false.\n"
+      external_number:
+        type: "number"
+        format: "int32"
+        description: "(Optional) Instructs the Entrypoint, if defined by `entrypoint_domain`,\n\
+          to use this number (as opposed to the randomly-assigned Kubernetes\nservice\
+          \ number) for this Port on the external load balancer. Does not\napply to\
+          \ `per_instance` external Ports, which currently must be\nrandomly-assigned.\n"
+  CpuAllocation:
+    type: "object"
+    properties:
+      min:
+        type: "string"
+        description: "(Note: will probably be changed to `request`)\nThe amount of\
+          \ CPU to reserve for each Instance of a Component on the\nunderlying Node.\
+          \ Translates to Kubernetes Pod CPU request value.\n"
+      max:
+        type: "string"
+        description: "(Note: will probably be changed to `limit`)\nThe amount of CPU\
+          \ to limit each Instance of a Component to on the\nunderlying Node. Translates\
+          \ to Kubernetes Pod CPU limit value.\n"
+    description: "The following rule applies to both `min` and `max` field values.\
+      \ Both \"1\"\nand \"1000m\" (millicores) will be parsed as 1 core. Without notation,\
+      \ it\ncan be a decimal -- for example \"2.5\" for 2.5 cores.\n"
+  RamAllocation:
+    type: "object"
+    properties:
+      min:
+        type: "string"
+        description: "(Note: will probably be changed to `request`)\nThe amount of\
+          \ RAM to reserve for each Instance of a Component on the\nunderlying Node.\
+          \ Translates to Kubernetes Pod RAM request value.\n"
+      max:
+        type: "string"
+        description: "(Note: will probably be changed to `limit`)\nThe amount of RAM\
+          \ to limit each Instance of a Component to on the\nunderlying Node. Translates\
+          \ to Kubernetes Pod RAM limit value.\n"
+    description: "The following rule applies to both `min` and `max` field values.\n\
+      \"1073741824\" (bytes), \"1024Mi\" (mebibytes), \"1Gi\" (gibibyte) will be\n\
+      parsed as 1 gibibyte of RAM. Can take decimal values such as \"1.5Gi\".\n"
+  Instance:
+    type: "object"
+    properties:
+      base_name:
+        type: "string"
+      name:
+        type: "string"
+      status:
+        type: "string"
+        description: "Can be \"STARTED\" or \"STOPPED\"."
+      cpu:
+        $ref: "#/definitions/ResourceMetrics"
+      ram:
+        $ref: "#/definitions/ResourceMetrics"
+      addresses:
+        $ref: "#/definitions/Addresses"
+  ResourceMetrics:
+    type: "object"
+    properties:
+      usage:
+        type: "number"
+        format: "int64"
+        description: "The current usage of the resource. CPU in millicores, RAM in\
+          \ bytes."
+        readOnly: true
+      limit:
+        type: "number"
+        format: "int64"
+        description: "The current limit of the resource. CPU in millicores, RAM in\
+          \ bytes."
+        readOnly: true
+  Entrypoint:
+    type: "object"
+    properties:
+      domain:
+        type: "string"
+        description: "Used as the identifier of the Entrypoint (and eventually could\
+          \ have DNS tie-in)."
+      address:
+        type: "string"
+        description: "The address of the load balancer (AWS ELB)."
+        readOnly: true
+      tags:
+        type: "object"
+        description: "A key/value (string/string) map for user tagging."
+        properties: {}
+      created:
+        type: "string"
+        description: "A string representing the time the resource was created in RFC1123\
+          \ format."
+        readOnly: true
+      updated:
+        type: "string"
+        description: "A string representing the time the resource was updated in RFC1123\
+          \ format."
+        readOnly: true
+  Task:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        readOnly: true
+      action_data:
+        type: "string"
+      max_attempts:
+        type: "number"
+        format: "int64"
+      attempts:
+        type: "number"
+        format: "int64"
+        readOnly: true
+      status:
+        type: "string"
+        readOnly: true
+      error:
+        type: "string"
+        readOnly: true
+      tags:
+        type: "object"
+        description: "A key/value (string/string) map for user tagging."
+        properties: {}
+      created:
+        type: "string"
+        description: "A string representing the time the resource was created in RFC1123\
+          \ format."
+        readOnly: true
+      updated:
+        type: "string"
+        description: "A string representing the time the resource was updated in RFC1123\
+          \ format."
+        readOnly: true
+  ImageRegistry:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "The identifier."
+      tags:
+        type: "object"
+        description: "A key/value (string/string) map for user tagging."
+        properties: {}
+      created:
+        type: "string"
+        description: "A string representing the time the resource was created in RFC1123\
+          \ format."
+        readOnly: true
+      updated:
+        type: "string"
+        description: "A string representing the time the resource was updated in RFC1123\
+          \ format."
+        readOnly: true
+  Node:
+    type: "object"
+    properties:
+      class:
+        type: "string"
+        description: "The type of server, e.g. \"m4.large\" on AWS."
+      id:
+        type: "string"
+        description: "The actual AWS ID of the server."
+        readOnly: true
+      name:
+        type: "string"
+        description: "The name assigned by Kubernetes."
+        readOnly: true
+      external_ip:
+        type: "string"
+        readOnly: true
+      provider_creation_timestamp:
+        type: "string"
+        readOnly: true
+      out_of_disk:
+        type: "boolean"
+        readOnly: true
+      status:
+        type: "string"
+        readOnly: true
+      cpu:
+        $ref: "#/definitions/ResourceMetrics"
+      ram:
+        $ref: "#/definitions/ResourceMetrics"
+      tags:
+        type: "object"
+        description: "A key/value (string/string) map for user tagging."
+        properties: {}
+      created:
+        type: "string"
+        description: "A string representing the time the resource was created in RFC1123\
+          \ format."
+        readOnly: true
+      updated:
+        type: "string"
+        description: "A string representing the time the resource was updated in RFC1123\
+          \ format."
+        readOnly: true
