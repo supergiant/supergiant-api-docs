@@ -1004,6 +1004,9 @@ definitions:
         type: "string"
   Repo:
     type: "object"
+    required:
+    - "key"
+    - "name"
     properties:
       name:
         type: "string"
@@ -1018,6 +1021,7 @@ definitions:
         type: "string"
         description: "A string that can be either \"dockercfg\" (default) or \"dockerconfigjson\"\
           , which should represent the format of the \"key\" value."
+        default: "dockercfg"
       tags:
         type: "object"
         description: "A key/value (string/string) map for user tagging."
@@ -1034,6 +1038,8 @@ definitions:
         readOnly: true
   App:
     type: "object"
+    required:
+    - "name"
     properties:
       name:
         type: "string"
@@ -1054,6 +1060,8 @@ definitions:
         readOnly: true
   Component:
     type: "object"
+    required:
+    - "name"
     properties:
       name:
         type: "string"
@@ -1087,6 +1095,9 @@ definitions:
         readOnly: true
   CustomDeployScript:
     type: "object"
+    required:
+    - "command"
+    - "image"
     properties:
       image:
         type: "string"
@@ -1122,6 +1133,8 @@ definitions:
         readOnly: true
   Release:
     type: "object"
+    required:
+    - "containers"
     properties:
       timestamp:
         type: "string"
@@ -1169,6 +1182,10 @@ definitions:
         readOnly: true
   VolumeBlueprint:
     type: "object"
+    required:
+    - "name"
+    - "size"
+    - "type"
     properties:
       name:
         type: "string"
@@ -1185,6 +1202,8 @@ definitions:
         description: "The size of the volume in GiB (Gibibyte)."
   ContainerBlueprint:
     type: "object"
+    required:
+    - "image"
     properties:
       image:
         type: "string"
@@ -1218,6 +1237,9 @@ definitions:
           type: "string"
   EnvVar:
     type: "object"
+    required:
+    - "name"
+    - "value"
     properties:
       name:
         type: "string"
@@ -1227,6 +1249,9 @@ definitions:
         description: "The value of the environment variable."
   Mount:
     type: "object"
+    required:
+    - "path"
+    - "volume"
     properties:
       volume:
         type: "string"
@@ -1236,11 +1261,14 @@ definitions:
         description: "The directory where the volume will be mounted in the container."
   Port:
     type: "object"
+    required:
+    - "number"
     properties:
       protocol:
         type: "string"
-        description: "The protocol of the Kubernetes service port, \"TCP\" (default)\
-          \ or \"UDP\"."
+        description: "The protocol of the Kubernetes service port, \"TCP\" or \"UDP\"\
+          ."
+        default: "TCP"
       number:
         type: "number"
         format: "int32"
@@ -1254,6 +1282,7 @@ definitions:
           \ external\nNode IPs. When true, with an `entrypoint_domain` provided, the\
           \ port\nwill be exposed on an external load balancer (AWS ELB), giving it\
           \ an\npublicly accessible address.\n"
+        default: false
       per_instance:
         type: "boolean"
         description: "When true, each Instance (the number of which is determined\
@@ -1262,6 +1291,7 @@ definitions:
           \ load-balanced endpoints). When false (default),\nInstances can not be\
           \ reached directly on this Port, as traffic to it\nis load-balanced internally\
           \ by Kubernetes across all Instances.\n"
+        default: false
       entrypoint_domain:
         type: "string"
         description: "(Optional) The `domain` of the Entrypoint to be used with this\
@@ -1341,6 +1371,8 @@ definitions:
         readOnly: true
   Entrypoint:
     type: "object"
+    required:
+    - "domain"
     properties:
       domain:
         type: "string"
@@ -1401,6 +1433,8 @@ definitions:
         readOnly: true
   ImageRegistry:
     type: "object"
+    required:
+    - "name"
     properties:
       name:
         type: "string"
@@ -1421,6 +1455,8 @@ definitions:
         readOnly: true
   Node:
     type: "object"
+    required:
+    - "class"
     properties:
       class:
         type: "string"
